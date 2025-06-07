@@ -15,8 +15,8 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_URL="https://github.com/TheSethRose/Github-Copilot-Rules.git"
-TEMP_DIR="github-copilot-rules-tmp"
+REPO_URL="https://github.com/TheSethRose/GitHub-Copilot-Instructions-Template.git"
+TEMP_DIR="github-copilot-instructions-tmp"
 USER_PROMPTS_DIR="$HOME/Library/Application Support/Code - Insiders/User/prompts"
 
 # Function to print colored output
@@ -83,8 +83,8 @@ ask_choice() {
         response=${response:-$default}
         
         case $response in
-            1 ) return 1;;
-            2 ) return 2;;
+            1 ) return 0;;  # Return 0 for option 1 (success in bash)
+            2 ) return 1;;  # Return 1 for option 2
             * ) print_color $RED "Please choose 1 or 2.";;
         esac
     done
@@ -221,12 +221,23 @@ main() {
     
     print_header
     
+    print_color $BLUE "This installer will set up GitHub Copilot instruction templates in your current directory."
+    print_color $BLUE "Current directory: $(pwd)"
+    print_color $GREEN "The installation will proceed automatically with sensible defaults."
+    echo
+    
     # Check if we're in a git repository or appropriate directory
     if [ ! -d ".git" ] && [ ! -f "package.json" ] && [ ! -f "README.md" ]; then
-        if ! ask_yes_no "You don't appear to be in a project directory. Continue anyway?" "n"; then
-            print_color $YELLOW "Installation cancelled."
+        print_color $YELLOW "Note: You don't appear to be in a project directory."
+        print_color $YELLOW "The installer will create a .github folder with instruction templates here."
+        print_color $BLUE "You can always move these files to your project later."
+        echo
+        if ! ask_yes_no "Continue with installation in this directory?" "y"; then
+            print_color $YELLOW "Installation cancelled by user."
             exit 0
         fi
+    else
+        print_color $GREEN "✓ Project directory detected. Proceeding with installation."
     fi
     
     # Step 1: Check for existing .github folder
@@ -255,7 +266,7 @@ main() {
               "2"
     
     local choice_result=$?
-    if [ $choice_result -eq 1 ]; then
+    if [ $choice_result -eq 0 ]; then
         install_to_userdata=true
         print_color $BLUE "Prompts will be installed to user data folder for global access."
     else

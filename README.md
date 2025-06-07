@@ -142,13 +142,13 @@ Task-specific prompts for common development workflows:
 Run the installation script directly from your project directory:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/TheSethRose/Github-Copilot-Rules/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/TheSethRose/GitHub-Copilot-Instructions-Template/refs/heads/main/install.sh | bash
 ```
 
 Or download and run locally:
 
 ```bash
-wget https://raw.githubusercontent.com/TheSethRose/Github-Copilot-Rules/main/install.sh
+wget https://raw.githubusercontent.com/TheSethRose/GitHub-Copilot-Instructions-Template/refs/heads/main/install.sh
 chmod +x install.sh
 ./install.sh
 ```
@@ -167,13 +167,13 @@ If you prefer manual installation:
 
 ```bash
 # Clone the repository
-git clone https://github.com/TheSethRose/Github-Copilot-Rules.git
+git clone https://github.com/TheSethRose/GitHub-Copilot-Instructions-Template.git
 
 # Copy to your project
-cp -r Github-Copilot-Rules/.github your-project/
+cp -r GitHub-Copilot-Instructions-Template/.github your-project/
 
 # Optional: Copy prompts to VS Code User Data folder
-cp Github-Copilot-Rules/.github/prompts/* ~/Library/Application\ Support/Code\ -\ Insiders/User/prompts/
+cp GitHub-Copilot-Instructions-Template/.github/prompts/* ~/Library/Application\ Support/Code\ -\ Insiders/User/prompts/
 ```
 
 ## Quick Start
