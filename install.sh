@@ -50,19 +50,29 @@ ask_yes_no() {
     local default=$2
     local response
     
+    # Fallback check - if we can't access /dev/tty, show error
+    if [ ! -c /dev/tty ]; then
+        print_color $RED "Error: Cannot access terminal for interactive input"
+        print_color $RED "Please download and run this script directly instead of piping"
+        print_color $BLUE "Run: curl -O https://raw.githubusercontent.com/TheSethRose/GitHub-Copilot-Instructions-Template/main/install.sh && bash install.sh"
+        exit 1
+    fi
+    
     while true; do
         if [ "$default" = "y" ]; then
-            read -p "$question [Y/n]: " response
+            printf "%s [Y/n]: " "$question" >&2
+            read response </dev/tty
             response=${response:-y}
         else
-            read -p "$question [y/N]: " response
+            printf "%s [y/N]: " "$question" >&2
+            read response </dev/tty
             response=${response:-n}
         fi
         
         case $response in
             [Yy]* ) return 0;;
             [Nn]* ) return 1;;
-            * ) print_color $RED "Please answer yes (y) or no (n).";;
+            * ) print_color $RED "Please answer yes (y) or no (n)." >&2;;
         esac
     done
 }
@@ -75,17 +85,26 @@ ask_choice() {
     local default=$4
     local response
     
+    # Fallback check - if we can't access /dev/tty, show error
+    if [ ! -c /dev/tty ]; then
+        print_color $RED "Error: Cannot access terminal for interactive input"
+        print_color $RED "Please download and run this script directly instead of piping"
+        print_color $BLUE "Run: curl -O https://raw.githubusercontent.com/TheSethRose/GitHub-Copilot-Instructions-Template/main/install.sh && bash install.sh"
+        exit 1
+    fi
+    
     while true; do
-        echo "$question"
-        echo "1) $option1"
-        echo "2) $option2"
-        read -p "Choose [1/2] (default: $default): " response
+        echo "$question" >&2
+        echo "1) $option1" >&2
+        echo "2) $option2" >&2
+        printf "Choose [1/2] (default: %s): " "$default" >&2
+        read response </dev/tty
         response=${response:-$default}
         
         case $response in
             1 ) return 0;;  # Return 0 for option 1 (success in bash)
             2 ) return 1;;  # Return 1 for option 2
-            * ) print_color $RED "Please choose 1 or 2.";;
+            * ) print_color $RED "Please choose 1 or 2." >&2;;
         esac
     done
 }
@@ -216,6 +235,16 @@ error_exit() {
 
 # Main installation function
 main() {
+    # Check if running in a piped environment and warn about interactivity
+    if [ ! -t 0 ]; then
+        print_color $YELLOW "Notice: Script is running in a piped environment (e.g., curl | bash)"
+        print_color $YELLOW "The script will attempt to use interactive prompts via /dev/tty"
+        print_color $YELLOW "If prompts don't work, please download and run the script directly"
+        echo
+        # Give a moment for user to read the warning
+        sleep 2
+    fi
+    
     # Trap to ensure cleanup on exit
     trap cleanup EXIT
     
@@ -246,11 +275,18 @@ main() {
     local delete_existing=false
     if check_github_folder; then
         print_color $YELLOW "Found existing .github folder with content."
-        if ask_yes_no "Do you want to delete the existing .github folder?" "n"; then
+        print_color $YELLOW "Contents:"
+        ls -la .github/ | head -10
+        echo
+        if ask_yes_no "Do you want to overwrite the existing .github folder?" "n"; then
             delete_existing=true
-            print_color $YELLOW "Will delete existing .github folder during installation."
+            print_color $YELLOW "Will overwrite existing .github folder during installation."
         else
-            print_color $YELLOW "Will preserve existing .github folder (files may be overwritten)."
+            print_color $BLUE "Installation cancelled. Your existing .github folder will remain unchanged."
+            print_color $BLUE "You can manually copy files from the repository if needed:"
+            print_color $BLUE "https://github.com/TheSethRose/GitHub-Copilot-Instructions-Template"
+            cleanup
+            exit 0
         fi
     else
         print_color $GREEN "No existing .github folder found or folder is empty."
