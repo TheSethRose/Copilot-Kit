@@ -137,33 +137,9 @@ Task-specific prompts for common development workflows:
 
 ## Installation
 
-### One-Line Installation
-
-Run the installation script directly from your project directory:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/TheSethRose/GitHub-Copilot-Instructions-Template/refs/heads/main/install.sh | bash
-```
-
-Or download and run locally:
-
-```bash
-wget https://raw.githubusercontent.com/TheSethRose/GitHub-Copilot-Instructions-Template/refs/heads/main/install.sh
-chmod +x install.sh
-./install.sh
-```
-
-### Installation Options
-
-The installer will guide you through:
-
-1. **Existing .github folder**: Choose to keep or replace existing GitHub configuration
-2. **Prompt location**: Install prompts globally (User Data folder) or project-specific (.github/prompts)
-3. **Automatic setup**: Downloads and configures all instruction templates and prompts
-
 ### Manual Installation
 
-If you prefer manual installation:
+Clone the repository and copy the `.github` folder to your project:
 
 ```bash
 # Clone the repository
@@ -175,6 +151,15 @@ cp -r GitHub-Copilot-Instructions-Template/.github your-project/
 # Optional: Copy prompts to VS Code User Data folder
 cp GitHub-Copilot-Instructions-Template/.github/prompts/* ~/Library/Application\ Support/Code\ -\ Insiders/User/prompts/
 ```
+
+### Using as a Template
+
+You can also use this repository as a GitHub template:
+
+1. Click "Use this template" on the GitHub repository page
+2. Create a new repository from the template
+3. Clone your new repository
+4. Copy the `.github` folder to your existing projects as needed
 
 ## Quick Start
 
