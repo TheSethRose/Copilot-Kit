@@ -2,55 +2,83 @@
 description: "Comprehensive Git operations with strict process adherence, safety checks, and automated workflow management"
 ---
 
-# Git - Comprehensive Git Operations & Workflow Management
+# Commit - Automated Git Commit Workflow
 
 Apply the [general coding guidelines](./general.instructions.md) to all Git operations and commit messages.
 
-**Command:** `/git`
+**Command:** `/commit`
 
 ## Purpose
 
-Execute comprehensive Git operations with strict process adherence, safety checks, and automated workflow management across the entire development lifecycle.
+Execute a complete Git commit workflow with automated staging, commit message generation, pushing, and cleanup. This command handles the entire process from staging changes to pushing to the remote repository.
 
 ## Usage
 
 ```
-/git [subcommand] [options]
+/commit [optional description]
 ```
+
+**Examples:**
+
+- `/commit` - Auto-detect changes and create appropriate commit message
+- `/commit "Add user authentication feature"` - Use specific description
+- `/commit --fix` - Indicate this is a bug fix
+- `/commit --feat` - Indicate this is a new feature
+
+## Complete Commit Workflow
+
+This command executes the following steps automatically:
+
+1. **`git add .`** - Stage all changes in the repository
+2. **Create commit message file** - Generate a properly formatted commit message
+3. **`git commit -F commit-message.txt`** - Commit with the generated message
+4. **`git push origin main`** - Push changes to the remote main branch
+5. **Delete commit file** - Clean up the temporary commit message file
 
 ## Subcommands
 
-### `/git commit` - Strict Commit Process
+### `/commit` - Complete Commit Workflow
 
-Execute the complete commit workflow with automated checks and conventional commit formatting.
+Execute the complete commit workflow with automated staging, message generation, commit, push, and cleanup.
 
-**Process:**
+**Automated Process:**
 
-1. **Pre-commit Validation**
+1. **Git Add All Changes**
+   ```bash
+   git add .
+   ```
+   - Stage all modified, new, and deleted files
+   - Include untracked files in the commit
+   - Validate that changes are intentional
 
-   - Run linting and formatting checks
-   - Execute relevant tests
-   - Validate build process
-   - Check for sensitive data exposure
-
-2. **Staging Review**
-
-   - Display all changes for review
-   - Confirm intent for each modified file
-   - Validate file additions/deletions
-   - Check for unintended changes
-
-3. **Commit Message Generation**
-
+2. **Generate Commit Message File**
+   - Analyze staged changes to determine commit type
+   - Create `commit-message.txt` with properly formatted message
    - Follow Conventional Commits specification
-   - Generate descriptive, atomic commit messages
-   - Include breaking change indicators
-   - Reference related issues/tickets
+   - Include relevant scope and description
 
-4. **Final Validation**
-   - Confirm commit message accuracy
-   - Verify staged changes match intent
-   - Execute final safety checks
+3. **Execute Commit**
+   ```bash
+   git commit -F commit-message.txt
+   ```
+   - Use the generated commit message file
+   - Ensure atomic commit with all staged changes
+   - Validate commit success
+
+4. **Push to Remote**
+   ```bash
+   git push origin main
+   ```
+   - Push changes to the main branch
+   - Handle any push conflicts or issues
+   - Confirm successful push
+
+5. **Cleanup**
+   ```bash
+   rm commit-message.txt
+   ```
+   - Remove the temporary commit message file
+   - Clean up any temporary files created during the process
 
 **Conventional Commit Format:**
 
@@ -64,9 +92,104 @@ Execute the complete commit workflow with automated checks and conventional comm
 
 **Types:** feat, fix, docs, style, refactor, perf, test, build, ci, chore
 
-### `/git branch` - Feature Branch Management
+### Commit Message Generation Strategy
 
-Create and manage feature branches with proper naming conventions and workflow integration.
+**Automatic Detection:**
+- Analyze file changes to determine appropriate commit type
+- Detect scope based on modified file locations
+- Generate descriptive commit messages based on actual changes
+- Include breaking change indicators when detected
+
+**Message Structure:**
+```
+type(scope): description
+
+- Detailed change 1
+- Detailed change 2
+- Detailed change 3
+
+Footer with issue references and breaking changes
+```
+
+**Example Generated Messages:**
+
+```
+feat(auth): implement JWT authentication system
+
+- Add JWT token generation and validation
+- Create authentication middleware for protected routes
+- Implement user login and logout endpoints
+- Add password hashing with bcrypt
+
+Closes #123
+```
+
+```
+fix(ui): resolve button alignment issues in mobile view
+
+- Fix flexbox layout for responsive button groups
+- Adjust padding and margins for mobile breakpoints
+- Ensure consistent button sizing across screen sizes
+
+Fixes #456
+```
+
+### Additional Git Operations
+
+**Note:** This prompt focuses specifically on the automated commit workflow. For other Git operations like branching, merging, and releases, use the appropriate specialized prompts.
+
+## Implementation Workflow
+
+When `/commit` is executed, follow this exact sequence:
+
+```bash
+# Step 1: Stage all changes
+git add .
+
+# Step 2: Create commit message file (generated by AI)
+echo "feat(scope): description
+
+- Change 1
+- Change 2
+
+Closes #issue" > commit-message.txt
+
+# Step 3: Commit with the message file
+git commit -F commit-message.txt
+
+# Step 4: Push to main branch
+git push origin main
+
+# Step 5: Clean up
+rm commit-message.txt
+```
+
+## Error Handling
+
+### Common Issues and Solutions
+
+**Merge Conflicts:**
+- If push fails due to conflicts, fetch and merge latest changes
+- Resolve conflicts manually
+- Re-run the commit workflow
+
+**Authentication Issues:**
+- Ensure Git credentials are properly configured
+- Check if SSH keys or personal access tokens are valid
+- Verify repository permissions
+
+**Branch Protection:**
+- If direct push to main is blocked, create a feature branch
+- Push to feature branch and create pull request
+- Follow repository's branch protection rules
+
+### Rollback Procedures
+
+If the commit workflow fails:
+1. Check Git status: `git status`
+2. If commit succeeded but push failed: `git push origin main` manually
+3. If commit failed: Review and fix issues, then retry
+4. Clean up temporary files: `rm -f commit-message.txt`
 
 **Process:**
 

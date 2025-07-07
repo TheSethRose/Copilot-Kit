@@ -1,5 +1,6 @@
 ---
 applyTo: "**"
+description: "Comprehensive code review guidelines focusing on quality, security, maintainability, and best practices"
 ---
 
 # Code Review Instructions

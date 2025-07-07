@@ -1,5 +1,6 @@
 ---
 applyTo: "**"
+description: "Main project coding instructions and architecture template for LLM completion. Contains project-specific constraints, development methodology, and architectural patterns."
 ---
 
 # Code Generation Instructions
@@ -55,6 +56,14 @@ Before any implementation:
 - Use strong typing when available in the language
 - Employ a test-driven approach with comprehensive edge case coverage
 - If you find an outdated task that needs to be deprecated / modified, ask the user for confirmation on how to proceed
+
+### Workflow Efficiency Principles
+
+- Work systematically through tasks without verbose explanations unless explicitly required
+- Execute one phase at a time in logical order without combining phases
+- Avoid repetitive status updates that flood the context
+- Focus on delivering results rather than describing what you're doing
+- Only provide detailed explanations when specifically requested or when clarification is needed
 
 ---
 

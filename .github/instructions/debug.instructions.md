@@ -1,5 +1,6 @@
 ---
 applyTo: "**"
+description: "Systematic debugging and error resolution instructions for identifying, analyzing, and fixing bugs"
 ---
 
 # Error Handling & Debugging Instructions
