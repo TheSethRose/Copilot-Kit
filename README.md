@@ -1,4 +1,4 @@
-# GitHub Copilot Instructions Template
+# Copilot-Kit
 
 A comprehensive collection of language-agnostic templates and structured prompts for GitHub Copilot that can be customized for any programming language and project type. This repository provides a systematic approach to AI-assisted development with standardized workflows, coding guidelines, and specialized prompts.
 
@@ -118,13 +118,13 @@ Clone the repository and copy the `.github` folder to your project:
 
 ```bash
 # Clone the repository
-git clone https://github.com/TheSethRose/GitHub-Copilot-Instructions-Template.git
+git clone https://github.com/TheSethRose/Copilot-Kit.git
 
 # Copy to your project
-cp -r GitHub-Copilot-Instructions-Template/.github your-project/
+cp -r Copilot-Kit/.github your-project/
 
 # Optional: Copy prompts to VS Code User Data folder
-cp GitHub-Copilot-Instructions-Template/.github/prompts/* ~/Library/Application\ Support/Code\ -\ Insiders/User/prompts/
+cp Copilot-Kit/.github/prompts/* ~/Library/Application\ Support/Code\ -\ Insiders/User/prompts/
 ```
 
 ### Using as a Template
@@ -166,6 +166,15 @@ You can also use this repository as a GitHub template:
 3. Update or add instruction/prompt files
 4. Test with your development workflows
 5. Submit a pull request with detailed examples
+
+## Special Thanks
+
+This project was inspired by and benefits from the following amazing open-source projects:
+
+- **[Joyride](https://github.com/BetterThanTomorrow/joyride)** - VS Code scripting with ClojureScript that powers our bulk installation system
+- **[Awesome Copilot](https://github.com/github/awesome-copilot)** - A curated list of resources for GitHub Copilot that inspired many of our best practices
+- **[GitHub Copilot](https://github.com/features/copilot)** - The AI pair programmer that makes all of this possible
+- **[Visual Studio Code](https://code.visualstudio.com/)** - The extensible editor that provides the platform for these integrations
 
 ## License
 

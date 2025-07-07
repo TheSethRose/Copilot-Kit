@@ -1,0 +1,14 @@
+feat: release Copilot-Kit v1.0.0 - comprehensive GitHub Copilot template system
+
+- Refactor project structure with action-oriented naming conventions
+- Implement Joyride bulk installation system for VS Code integration
+- Add comprehensive instruction templates for multiple programming languages
+- Create specialized prompt templates for common development workflows
+- Include custom chat modes for role-based AI assistance
+- Update repository name from GitHub-Copilot-Instructions-Template to Copilot-Kit
+- Add special thanks section crediting Joyride, Awesome Copilot, and other inspirations
+- Organize language-specific instructions in dedicated subfolders
+- Modernize documentation with improved structure and examples
+- Create automated README generation system
+
+BREAKING CHANGE: Repository name changed from GitHub-Copilot-Instructions-Template to Copilot-Kit
